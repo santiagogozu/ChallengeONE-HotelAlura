@@ -18,16 +18,21 @@ public class ConnectionFactory {
 		var pooledDataSource = new ComboPooledDataSource();
 		pooledDataSource.setJdbcUrl("jdbc:mysql://localhost/hotelalura?useTimeZone=true&serverTimeZone=UTC");
 		pooledDataSource.setUser("root");
-		pooledDataSource.setPassword("1234");
+		pooledDataSource.setPassword("");
 		pooledDataSource.setMaxPoolSize(10);
 		this.datasource = pooledDataSource;
 		System.out.println("Entra en ConnectionFactory");
 	}
 
-	public Connection recuperaConexion() throws SQLException {
+	public Connection recuperaConexion() {
 		System.out.println("Entra en recuperaConexion");
-		System.out.println(this.datasource.getConnection());
-		return this.datasource.getConnection();
+
+		try {
+			System.out.println(this.datasource.getConnection());
+			return this.datasource.getConnection();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
